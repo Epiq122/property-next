@@ -1,19 +1,33 @@
-import Link from 'next/link';
-import properties from '@/properties.json';
-import PropertyCard from '@/components/PropertyCard';
+import Link from "next/link";
 
-const HomeProperties = () => {
+import PropertyCard from "@/components/PropertyCard";
+
+async function fetchProperties() {
+  try {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_DOMAIN}/properties`);
+
+    if (!res.ok) {
+      throw new Error("An error occurred while fetching the data");
+    }
+    return res.json();
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+const HomeProperties = async () => {
+  const properties = await fetchProperties();
   const recentProperties = properties
     .sort(() => Math.random() - 0.5)
     .slice(0, 3);
   return (
     <>
-      <section className='px-4 py-6'>
-        <div className='container-xl lg:container m-auto'>
-          <h2 className='text-3xl font-bold text-blue-500 mb-6 text-center'>
+      <section className="px-4 py-6">
+        <div className="container-xl m-auto lg:container">
+          <h2 className="mb-6 text-center text-3xl font-bold text-blue-500">
             Recent Properties
           </h2>
-          <div className='grid grid-cols-1 md:grid-cols-3 gap-6'>
+          <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
             {recentProperties === 9 ? (
               <p>No properties found</p>
             ) : (
@@ -25,10 +39,10 @@ const HomeProperties = () => {
         </div>
       </section>
 
-      <section className='m-auto max-w-lg my-10 px-6'>
+      <section className="m-auto my-10 max-w-lg px-6">
         <Link
-          href='/properties'
-          class='block bg-black text-white text-center py-4 px-6 rounded-xl hover:bg-gray-700'
+          href="/properties"
+          class="block rounded-xl bg-black px-6 py-4 text-center text-white hover:bg-gray-700"
         >
           View All Properties
         </Link>
