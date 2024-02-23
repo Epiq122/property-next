@@ -1,9 +1,8 @@
-import InfoBoxes from '../components/InfoBoxes';
-import Hero from '../components/Hero';
-import HomeProperties from '@/components/HomeProperties';
-import connectDB from '../config/database';
+import InfoBoxes from "../components/InfoBoxes";
+import Hero from "../components/Hero";
+import HomeProperties from "@/components/HomeProperties";
 
-const HomePage = async () => {
+const HomePage = () => {
   return (
     <>
       <Hero />
