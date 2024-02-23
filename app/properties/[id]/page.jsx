@@ -5,7 +5,9 @@ import { useParams } from "next/navigation";
 import { fetchProperty } from "@/utils/requests";
 import PropertyHeaderImage from "@/components/PropertyHeaderImage";
 import PropertyDetails from "@/components/PropertyDetails";
+
 import { FaArrowLeft } from "react-icons/fa";
+import Spinner from "@/components/Spinner";
 
 const PropertyPage = () => {
   const { id } = useParams();
@@ -39,6 +41,7 @@ const PropertyPage = () => {
 
   return (
     <>
+      {loading && <Spinner loading={loading} />}
       {!loading && property && (
         <PropertyHeaderImage image={property.images[0]} />
       )}
